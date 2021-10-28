@@ -1,0 +1,101 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void wypisz(int w)
+{
+	cout << w << "\n";
+}
+
+bool czy_nalezy(vector<int>tab, int element)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (tab[i] == element)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool czy_zawiera(vector<int>tab, vector<int>podzbior)
+{
+	for (int i = 0; i < podzbior.size(); i++)
+	{
+		if (!czy_nalezy(tab,podzbior[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void wypisz(std::vector<int>tab)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		cout << tab[i] << ", ";
+	}
+	cout << endl;
+}
+
+int suma(int a, int b)
+{
+	return a + b;
+}
+int suma(int a, int b, int c)
+{
+	int wynik = suma(a, b);
+	return suma(wynik, c);
+}
+
+int main()
+{
+	std::cout << "Hello World!\n";
+	int a = 5 + 3;
+	int b = suma(a, 5, 7);
+	wypisz(b);
+	//std::cin >> b;
+	if (a > b)
+	{
+		wypisz(a);
+	}
+	else
+	{
+		cout << "ALe lipa!\n";
+	}
+	vector<int> tab;
+	tab = { 1,3,5,7,9,11,13,15 };
+	vector<int>podzbior;
+	podzbior = { 1,3,5,6 };
+	//wypisz(tab.size());
+	//for (int i = 0; i < tab.size(); i++)
+	//{
+	//	std::cout << tab[i] << ", ";
+	//}
+	wypisz(tab);
+	bool wynik1 = czy_nalezy(tab, 5);
+	if (wynik1)
+	{
+		cout << "TAK" << std::endl;
+	}
+	else
+
+	{
+		cout << "nie" << std::endl;
+	}
+	bool wynik2 = czy_zawiera(tab, podzbior);
+	if (wynik2)
+	{
+		cout << "TAK" << std::endl;
+	}
+	else
+
+	{
+		cout << "nie" << std::endl;
+	}
+
+	system("pause");
+}
