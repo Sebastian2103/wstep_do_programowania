@@ -1,3 +1,6 @@
+// ConsoleApplication11.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+//
+
 #include "pch.h"
 #include <iostream>
 #include <vector>
@@ -6,9 +9,17 @@ using namespace std;
 
 void wypisz(int w)
 {
-	cout << w << "\n";
+	cout << w << endl;
 }
 
+void wypisz(vector<int>tab)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		cout << tab[i] << ", ";
+	}
+
+}
 bool czy_nalezy(vector<int>tab, int element)
 {
 	for (int i = 0; i < tab.size(); i++)
@@ -32,85 +43,75 @@ bool czy_zawiera(vector<int>tab, vector<int>podzbior)
 	}
 	return true;
 }
-
-void wypisz(std::vector<int>tab)
-{
-	for (int i = 0; i < tab.size(); i++)
-	{
-		cout << tab[i] << ", ";
-	}
-	cout << endl;
-}
-
 int min(vector<int>tab)
 {
-	int wynik=tab[0];
+	int min = tab[0];
 	for (int i = 0; i < tab.size(); i++)
 	{
-		if (tab[i]< wynik)
+		if (min > tab[i])
 		{
-			wynik = tab[i];
+			min = tab[i];
+		}
+	}
+	return min;
+}
+int suma(int a, int b)
+{
+	return a + b;
+}
+
+vector<int> unikalnosc(vector<int>tab)
+{
+	vector<int>wynik;
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (!czy_nalezy(wynik,tab[i]))
+		{
+			wynik.push_back(tab[i]);
 		}
 	}
 	return wynik;
 }
 
-int suma(int a, int b)
-{
-	return a + b;
-}
-int suma(int a, int b, int c)
-{
-	int wynik = suma(a, b);
-	return suma(wynik, c);
-}
-
 int main()
 {
 	std::cout << "Hello World!\n";
-	int a = 5 + 3;
-	int b = suma(a, 5, 7);
-	wypisz(b);
-	//std::cin >> b;
-	if (a > b)
-	{
-		wypisz(a);
-	}
-	else
-	{
-		cout << "ALe lipa!\n";
-	}
-	vector<int> tab;
-	tab = { 1,3,5,7,9,11,13,15 };
+	vector<int>tab;
+	tab = {1,3,5,7,7,7,7};
 	vector<int>podzbior;
-	podzbior = { 1,3,5,6 };
-	//wypisz(tab.size());
-	//for (int i = 0; i < tab.size(); i++)
-	//{
-	//	std::cout << tab[i] << ", ";
-	//}
-
-	wypisz(tab);
-	bool wynik1 = czy_nalezy(tab, 5);
-	if (wynik1)
+	podzbior = { 7,8,9,10 };
+	bool wynik = czy_nalezy(tab, 2);
+	if (wynik)
 	{
-		cout << "TAK" << std::endl;
+		cout << "TAK" << endl;
 	}
 	else
-
 	{
-		cout << "nie" << std::endl;
+		cout << "nie" << endl;
 	}
 	bool wynik2 = czy_zawiera(tab, podzbior);
 	if (wynik2)
 	{
-		cout << "TAK" << std::endl;
+		cout << "tak" << endl;
 	}
 	else
-
 	{
-		cout << "nie" << std::endl;
+		cout << "nie" << endl;
 	}
+	wypisz(tab);
+	wypisz(suma(11, 3));
+	cout << min(tab) << endl;
 
-	system("pause");
+	wypisz(unikalnosc(tab));
 }
+
+// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
+// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
+
+// Porady dotyczące rozpoczynania pracy:
+//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
+//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
+//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
+//   4. Użyj okna Lista błędów, aby zobaczyć błędy
+//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
+//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
