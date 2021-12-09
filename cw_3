@@ -1,164 +1,157 @@
-// ConsoleApplication12.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+// ConsoleApplication13.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 
 #include "pch.h"
 #include <iostream>
-#include <vector>
+#include<vector>
 #include<map>
+#include<time.h>
 
-using namespace std;								//w domu sprawdzic czyjest palindromem czycos
+using namespace std;
 
-void wypisz(int w)
+ void wypisz(int w)
 {
 	cout << w << endl;
 }
+ void wypisz(vector<int>tab)
+ {
+	 for (int i = 0; i < tab.size(); i++)
+	 {
+		 cout << tab[i] << ", ";
+	 }
+ }
+ void wypisz(map<int, int>m)
+ {
+	 for (auto item : m)
+	 {
+		 cout << item.first << "-->" << item.second << endl;
+	 }
+ }
 
-void wypisz(vector<int>tab)
-{
-	for (int i = 0; i < tab.size(); i++)
-	{
-		cout << tab[i] << ", ";
-	}
-}
+ bool czy_nalezy(vector<int>tab, int element)
+ {	
+	 for (int i = 0; i < tab.size(); i++)
+	 {
+		 if (tab[i] == element)
+		 {
+			 return true;
+		 }
+	 }
+	 return false;
+ }
 
-void wypisz(map<int,int>m)
-{
-	for (auto item:m)
-	{
-		cout << item.first << "-->" << item.second << endl;
-	}
-}
+ bool czy_zawiera(vector<int>tab, vector<int>podzbior)
+ {
+	 for (int i = 0; i < podzbior.size(); i++)
+	 {
+		 if (!czy_nalezy(tab, podzbior[i]))
+		 {
+			 return false;
+		 }
+	 }
+	 return true;
+ }
+ int max(vector<int>tab)
+ {
+	 int wynik = tab[0];
+		 for (int i = 0; i < tab.size(); i++)
+		 {
+			 if (wynik < tab[i])
+			 {
+				 wynik = tab[i];
+			 }
+		 }
+		 return wynik;
+ }
 
+ vector<int> unikalnosc(vector<int>tab)
+ {
+	 vector<int>wynik;
+	 for (int i = 0; i < tab.size(); i++)
+	 {
+		 if (!czy_nalezy(wynik, tab[i]))
+		 {
+			 wynik.push_back(tab[i]);
+		 }
+	 }
+	 return wynik;
+ }
+ bool czy_nalezy_klucz(map<int, int>m, int element)
+ {
+	 for (auto item : m)
+	 {
+		 if (item.first == element)
+		 {
+			 return true;
+		 }
+	 }
+	 return false;
+ }
 
-bool czy_nalezy(vector<int>tab, int element)
-{
-	for (int i = 0; i < tab.size(); i++)
-	{
-		if (tab[i] == element)
-		{
-			return true;
-		}
-	}
-	return false;
-}
+ map<int, int> czestosc(vector<int>tab)
+ {
+	 map<int, int>wynik;
+	 for (int i = 0; i < tab.size(); i++)
+	 {
+		 if (!czy_nalezy_klucz(wynik,tab[i]))
+		 {
+			 wynik.insert({ tab[i],1 });
+		 }
+		 else
+		 {
+			 wynik[tab[i]]++;
+		 }
+	 }
+	 return wynik;
+ }
+ bool palindrom(vector<int>tab)
+ {	
+	 int koniec = tab.size() - 1;
+	 for (int i = 0; i < tab.size() / 2; i++)
+	 {
+		 if (tab[i] != tab[koniec - i])
+		 {
+			 return false;
+		 }
+	 }
+	 return true;
+ }
+ vector<int> podzielnosc3(vector<int>tab,int dzielnik,int reszta=0)
+ {
+	 vector<int>wynik;
+	 for (int i = 0; i < tab.size(); i++)
+	 {
+		 if (tab[i]% dzielnik == reszta)
+		 {
+			 wynik.push_back(tab[i]);
+		 }
+	 }
+	 return wynik;
+ }
 
-bool czy_zawiera(vector<int>tab, vector<int>podzbior)
-{
-	for (int i = 0; i < podzbior.size(); i++)
-	{
-		if (!czy_nalezy(tab, podzbior[i]))
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-int min(vector<int>tab)
-{
-	int wynik = tab[0];
-	for (int i = 0; i < tab.size(); i++)
-	{
-		if (wynik > tab[i])
-		{
-			wynik = tab[i];
-		}
-	}
-	return wynik;
-}
-
-vector<int> unikalnosc(vector<int>tab)
-{
-	vector<int>wynik;
-	for (int i = 0; i < tab.size(); i++)
-	{
-		if (!czy_nalezy(wynik, tab[i]))
-		{
-			wynik.push_back(tab[i]);
-		}
-	}
-	return wynik;
-}
-bool czy_nalezy_klucz(map<int, int>m, int klucz)
-{
-	for (auto item : m)
-	{
-		if (item.first == klucz)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-map<int, int> czestosc1(vector<int>tab)
-{
-	map<int, int>wynik;
-	for (int i = 0; i < tab.size(); i++)
-	{
-		if (!czy_nalezy_klucz(wynik, tab[i]))								//zamiast środka moze byc wynik[tab[i]]++
-		{
-			wynik.insert({ tab[i],1 });
-		}
-		else
-		{
-			wynik[tab[i]]++;
-		}
-	}
-	return wynik;
-}
-
-vector<vector<int>>	czestosc(vector<int>tab)
-{
-	vector<vector<int>>wynik;
-	vector<int>u = unikalnosc(tab);
-	vector<int>c;
-	for (int i = 0; i < u.size(); i++)
-	{
-		int licznik = 0;
-		for (int j = 0;j < tab.size(); j++)
-		{
-			if (u[i] == tab[j])
-			{
-				licznik ++;
-			}
-		}
-		c.push_back(licznik);
-	}
-	wynik.push_back(u);
-	wynik.push_back(c);
-	return wynik;
-}
+ vector<int> generuj(int n,int max,int min)
+ {
+	 vector<int>wynik;
+	 for (int i = 0; i < n; i++)
+	 {
+		 wynik.push_back(rand()%(max-min)+min);
+	 }
+	 return wynik;
+ }
 
 int main()
 {
-	std::cout << "Hello World!\n";
-	int a = 6;
-	wypisz(a);
+	srand(time(NULL));
+    std::cout << "Hello World!\n"; 
 	vector<int>tab;
-	tab = { 1, 3, 5,5,2,6,1,8 };
+	tab = { 2,5,9,7,2,4,3 };
 	vector<int>podzbior;
-	podzbior = { 1,3 };
-	bool wynik1 = czy_nalezy(tab, 1);
-	if (wynik1)
-	{
-		cout << "TAK" << endl;
-	}
-	else
-	{
-		cout << "NIE" << endl;
-	}
-	bool wynik2 = czy_zawiera(tab, podzbior);
-	if (wynik2)
-	{
-		cout << "TAK" << endl;
-	}
-	else
-	{
-		cout << "NIE" << endl;
-	}
-	cout << min(tab) << endl;
-	wypisz(czestosc1(tab));
+	podzbior = { 1,2,3,4,5,4,4,4,4,2,1 };
+	wypisz(czestosc(tab));
+	wypisz(max(tab));
+	wypisz(podzielnosc3(tab,2));
+	cout << endl;
+	wypisz(generuj(5,20,10));
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
