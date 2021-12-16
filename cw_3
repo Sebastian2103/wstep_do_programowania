@@ -1,157 +1,167 @@
-// ConsoleApplication13.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+// wejsciowka16.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 
 #include "pch.h"
 #include <iostream>
-#include<vector>
+#include <vector>
 #include<map>
 #include<time.h>
-
+#include<cstdlib>
 using namespace std;
 
- void wypisz(int w)
+void wypisz(int w)
 {
 	cout << w << endl;
 }
- void wypisz(vector<int>tab)
- {
-	 for (int i = 0; i < tab.size(); i++)
-	 {
-		 cout << tab[i] << ", ";
-	 }
- }
- void wypisz(map<int, int>m)
- {
-	 for (auto item : m)
-	 {
-		 cout << item.first << "-->" << item.second << endl;
-	 }
- }
+void wypisz(vector<int>tab)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		cout << tab[i] << ", ";
+	}
+}
+void wypisz(map<int, int>m)
+{
+	for (auto item : m)
+	{
+		cout << item.first << "->" << item.second << endl;
+	}
+}
 
- bool czy_nalezy(vector<int>tab, int element)
- {	
-	 for (int i = 0; i < tab.size(); i++)
-	 {
-		 if (tab[i] == element)
-		 {
-			 return true;
-		 }
-	 }
-	 return false;
- }
+bool czyNalezy(vector<int>tab, int element)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (tab[i] == element)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+bool czyZawiera(vector<int>tab, vector<int>tab1)
+{
+	for (int i = 0; i < tab1.size(); i++)
+	{
+		if (!czyNalezy(tab, tab1[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+vector<int> unikalnosc(vector<int>tab)
+{
+	vector<int>wynik;
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (!czyNalezy(wynik, tab[1]))
+		{
+			wynik.push_back(tab[i]);
+		}
+	}
+	return wynik;
+}
 
- bool czy_zawiera(vector<int>tab, vector<int>podzbior)
- {
-	 for (int i = 0; i < podzbior.size(); i++)
-	 {
-		 if (!czy_nalezy(tab, podzbior[i]))
-		 {
-			 return false;
-		 }
-	 }
-	 return true;
- }
- int max(vector<int>tab)
- {
-	 int wynik = tab[0];
-		 for (int i = 0; i < tab.size(); i++)
-		 {
-			 if (wynik < tab[i])
-			 {
-				 wynik = tab[i];
-			 }
-		 }
-		 return wynik;
- }
+bool czyNalezyKlucz(map<int, int>m, int element)
+{
+	for (auto item : m)
+	{
+		if (item.first == element)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+map<int, int> czestosc(vector<int>tab)
+{
+	map<int, int>wynik;
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (!czyNalezyKlucz(wynik, tab[i]))
+		{
+			wynik.insert({ tab[i],1 });
+		}
+		else
+		{
+			wynik[tab[i]]++;
+		}
+	}
+	return wynik;
+}
+int min(vector<int>tab)
+{
+	int wynik = tab[0];
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (wynik > tab[i])
+		{
+			wynik = tab[i];
+		}
+	}
+	return wynik;
+}
+vector<int> podzielnosc(vector<int>tab, int dzielnik, int reszta=0)
+{
+	vector<int>wynik;
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (tab[i] % dzielnik == reszta)
+		{
+			wynik.push_back(tab[i]);
+		}
 
- vector<int> unikalnosc(vector<int>tab)
- {
-	 vector<int>wynik;
-	 for (int i = 0; i < tab.size(); i++)
-	 {
-		 if (!czy_nalezy(wynik, tab[i]))
-		 {
-			 wynik.push_back(tab[i]);
-		 }
-	 }
-	 return wynik;
- }
- bool czy_nalezy_klucz(map<int, int>m, int element)
- {
-	 for (auto item : m)
-	 {
-		 if (item.first == element)
-		 {
-			 return true;
-		 }
-	 }
-	 return false;
- }
-
- map<int, int> czestosc(vector<int>tab)
- {
-	 map<int, int>wynik;
-	 for (int i = 0; i < tab.size(); i++)
-	 {
-		 if (!czy_nalezy_klucz(wynik,tab[i]))
-		 {
-			 wynik.insert({ tab[i],1 });
-		 }
-		 else
-		 {
-			 wynik[tab[i]]++;
-		 }
-	 }
-	 return wynik;
- }
- bool palindrom(vector<int>tab)
- {	
-	 int koniec = tab.size() - 1;
-	 for (int i = 0; i < tab.size() / 2; i++)
-	 {
-		 if (tab[i] != tab[koniec - i])
-		 {
-			 return false;
-		 }
-	 }
-	 return true;
- }
- vector<int> podzielnosc3(vector<int>tab,int dzielnik,int reszta=0)
- {
-	 vector<int>wynik;
-	 for (int i = 0; i < tab.size(); i++)
-	 {
-		 if (tab[i]% dzielnik == reszta)
-		 {
-			 wynik.push_back(tab[i]);
-		 }
-	 }
-	 return wynik;
- }
-
- vector<int> generuj(int n,int max,int min)
- {
-	 vector<int>wynik;
-	 for (int i = 0; i < n; i++)
-	 {
-		 wynik.push_back(rand()%(max-min)+min);
-	 }
-	 return wynik;
- }
+	}
+	return wynik;
+}
+vector<int> generuj(int ilosc, int max, int min)
+{
+	vector<int>wynik;
+	for (int i = 0; i < ilosc; i++)
+	{
+		wynik.push_back(rand() % (max - min) + min);
+	}
+	return wynik;
+}
 
 int main()
 {
-	srand(time(NULL));
-    std::cout << "Hello World!\n"; 
+	//palindrom, ale na (string)
+	//wygeneruj wektor o dlugosci podanej przez uzytkownika wybierz z niego liczby podzielne przez 7 i wypisz
+	//cout << "Podaj dlugosc wektora";
+	//int m;
+	//cin >>m;
+	//wypisz(podzielnosc(generuj(m, 50, 0), 7));
+	//int n;
+	//cin >> n;
+	//for (int i = 1; i <= n; i++)
+	//{
+		//for (int j = 0; j < i*2-1; j++)
+		//{
+		//	cout << "*";
+		//}	
+		//cout << endl;
+	//}
+	int n;
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+	{
+		for (int j = 1; j <= n - i; j++)
+		{
+			cout << " ";
+		}
+		for (int j = 1; j <= i * 2 - 1; j++)
+		{
+			cout << "*";
+		}
+		cout << endl;
+	}
 	vector<int>tab;
-	tab = { 2,5,9,7,2,4,3 };
-	vector<int>podzbior;
-	podzbior = { 1,2,3,4,5,4,4,4,4,2,1 };
-	wypisz(czestosc(tab));
-	wypisz(max(tab));
-	wypisz(podzielnosc3(tab,2));
-	cout << endl;
-	wypisz(generuj(5,20,10));
+	tab = { 1,2,3,4,5,6,7,1,2,3 };
+	vector<int>tab1;
+	tab1 = { 1,2,3 };
+    std::cout << "Hello World!\n"; 
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
@@ -164,5 +174,3 @@ int main()
 //   4. Użyj okna Lista błędów, aby zobaczyć błędy
 //   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
 //   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
-
-
