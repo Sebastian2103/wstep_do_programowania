@@ -1,0 +1,90 @@
+// wdp_pop5.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+//
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void wypisz(vector<int>tab)
+{
+    for (int i = 0; i < tab.size(); i++)
+    {
+        cout << tab[i] << " ";
+    }
+    cout << endl;
+}
+int suma(vector<int>tab)
+{
+    int temp = 0;
+    for (int i = 0; i < tab.size(); i++)
+    {
+        temp += tab[i];
+    }
+    return temp;
+}
+
+int odlegloscDomu(vector<int>tab, int nrDomu)
+{
+    int temp = 0;
+    for (int i = 0; i < tab.size(); i++)
+    {
+        temp += abs(tab[nrDomu] - tab[i]);
+    }
+    return temp;
+}
+
+
+vector<int>odleglosc(vector<int>tab, int a)
+{
+    vector<int>temp;
+    
+    for (int i = 0; i < tab.size(); i++)
+    {
+        if (abs((tab[a] - tab[i]) != 0))
+        {
+            temp.push_back(abs(tab[a] - tab[i]));
+        }
+    }
+    return temp;
+}
+
+int rodzina(vector<int>tab)
+{
+    int wynik = tab[0];
+    int odleglosc = odlegloscDomu(tab, tab[0]);
+    for (int i = 0; i < tab.size(); i++)
+    {
+        if (odleglosc > odlegloscDomu(tab, tab[i]))
+        {
+            odleglosc = odlegloscDomu(tab, tab[i]);
+            wynik = tab[i];
+        }
+    }
+    return wynik;
+}
+
+int main()
+{   
+    vector<int>tab = { 1,3,4,5,8,9 };
+    cout << rodzina(tab);
+
+   /* 
+   for (int i = 0; i < tab.size(); i++)
+    {
+        wypisz(odleglosc(tab, i));
+    }
+    */
+   // cout << rodzina(tab);
+}
+
+// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
+// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
+
+// Porady dotyczące rozpoczynania pracy:
+//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
+//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
+//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
+//   4. Użyj okna Lista błędów, aby zobaczyć błędy
+//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
+//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
