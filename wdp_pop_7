@@ -1,0 +1,122 @@
+// wdp_pop_7.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+//
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void wypisz(int n)
+{
+    cout << n;
+}
+
+void wypisz(vector<int>tab)
+{
+    for (int i = 0; i < tab.size(); i++)
+    {
+        cout << tab[i] << " ";
+    }
+
+}
+
+int suma(vector<int>tab)
+{
+    int wynik = 0;
+    for (int i = 0; i < tab.size(); i++)
+    {
+        wynik += tab[i];
+    }
+    return wynik;
+}
+
+int max(vector<int>tab)
+{
+    int temp = tab[0];
+    for (int i = 0; i < tab.size(); i++)
+    {
+        if (temp < tab[i])
+        {
+            temp = tab[i];
+        }
+    }
+    return temp;
+}
+
+int index(vector<int>tab, int n)
+{
+    for (int i = 0; i < tab.size(); i++)
+    {
+        if (tab[i] == n)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool CzyNalezy(vector<int>tab, int n)
+{
+    return index(tab, n) > -1;
+}
+bool CzyZawiera(vector<int>tab, vector<int> tab2)
+{
+    for (int i = 0; i < tab2.size(); i++)
+    {
+        if (!CzyNalezy(tab, tab2[i]))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+//punkt 0 wiedziec o co chodzi!
+/*
+punkt 1. PRZYKŁAD! wymyślic przykład(do zadania wymyslec przykład)
+punkt 2. Sprawdzic czy przykład jest kompletny
+punkt 3. Sformalizowanie przykładu
+punkt 4. Nagłowek funkcji
+punkt 5. Ciało funkcji(jezeli zwraca cos innego niz void lub bool musimy zadeklarowac zmienna typu zwracanego funkcji)
+punkt 6. Nie wiesz co pisac? Wróć do przykładu
+*/
+
+vector<int> unikalnosc(vector<int>tab)
+{
+    vector<int>wynik;
+    for (int i = 0; i < tab.size(); i++)
+    {
+        if (!CzyNalezy(wynik, tab[i]))
+        {
+            wynik.push_back(tab[i]);
+        }
+    }
+    return wynik;
+}
+
+int main()
+{
+    std::cout << "Hello World!\n";
+    vector<int>tab = { 8,1,1,7,5,8,3 };
+    vector<int>tab2 = { 1,4 };
+    wypisz(unikalnosc(tab));
+    cout<< "\n";
+    wypisz(suma(tab));
+    cout << "\n";
+    wypisz(max(tab));
+    cout << "\n";
+    wypisz(CzyNalezy(tab, 2));
+    cout << "\n";
+    wypisz(CzyZawiera(tab, tab2));
+}
+
+// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
+// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
+
+// Porady dotyczące rozpoczynania pracy:
+//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
+//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
+//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
+//   4. Użyj okna Lista błędów, aby zobaczyć błędy
+//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
+//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
