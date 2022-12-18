@@ -131,7 +131,7 @@ bool CzyNalezyKlucz(map<int, int>m, int n)
 {
     for (auto& item : m)
     {
-        if (item.first == n)
+        if (m.find(item.first) != m.end())
         {
             return true;
         }
